@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import Joi from "joi-browser";
 import Form from "./common/form";
-import { render } from "@testing-library/react";
+import Joi from "joi-browser";
 
 class RegisterForm extends Form {
   state = { data: { username: "", password: "", name: "" }, errors: {} };
@@ -12,15 +11,13 @@ class RegisterForm extends Form {
     name: Joi.string().required().label("Name"),
   };
 
-  doSubmit = () => {
-    //Call the server
-    console.log("Submitted");
-  };
-
+  doSubmit() {
+    console.log("submitted");
+  }
   render() {
     return (
       <div>
-        <h1>Register</h1>
+        <h1>Registration Form</h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("username", "Username")}
           {this.renderInput("password", "Password", "password")}

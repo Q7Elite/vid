@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
-import Input from "./input";
 import Select from "./select";
-
-// ... (previous code)
+import Input from "./input";
 
 class Form extends Component {
   state = { data: {}, errors: {} };
 
   validate = () => {
-    const options = { abortEarly: false };
-    const { error } = Joi.validate(this.state.data, this.schema, options);
+    const { error } = Joi.validate(this.state.data, this.schema, {
+      abortEarly: false,
+    });
     if (!error) return null;
 
     const errors = {};
@@ -30,7 +29,6 @@ class Form extends Component {
     const errors = this.validate();
     this.setState({ errors: errors || {} });
     if (errors) return;
-
     this.doSubmit();
   };
 
@@ -39,7 +37,6 @@ class Form extends Component {
     const errorMessage = this.validateProperty(input);
     if (errorMessage) errors[input.name] = errorMessage;
     else delete errors[input.name];
-
     const data = { ...this.state.data };
     data[input.name] = input.value;
     this.setState({ data, errors });
@@ -48,55 +45,37 @@ class Form extends Component {
   renderButton(label) {
     return (
       <button
-        disabled={this.validate() || Object.keys(this.state.errors).length > 0}
         className="btn btn-primary m-2"
+        disabled={this.validate() || Object.keys(this.state.errors).length > 0}
       >
         {label}
       </button>
     );
   }
-
   renderSelect(name, label, options) {
     const { data, errors } = this.state;
-
     return (
       <Select
         name={name}
-        value={data[name]}
         label={label}
         options={options}
         onChange={this.handleChange}
         error={errors[name]}
+        value={data[name]}
       ></Select>
     );
   }
-
   renderInput(name, label, type = "text") {
     const { data, errors } = this.state;
-
     return (
       <Input
         name={name}
         label={label}
-        value={data[name]}
         type={type}
         onChange={this.handleChange}
         error={errors[name]}
+        value={data[name]}
       ></Input>
-      // <div className="form-group">
-      //   <label htmlFor={name}>{label}</label>
-      //   <input
-      //     type={type}
-      //     id={name}
-      //     name={name}
-      //     value={data[name]}
-      //     onChange={this.handleChange}
-      //     className="form-control"
-      //   />
-      //   {errors[name] && (
-      //     <div className="alert alert-danger">{errors[name]}</div>
-      //   )}
-      // </div>
     );
   }
 }
