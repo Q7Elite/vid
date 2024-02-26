@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import Movies from "./components/movies";
-import MovieForm from "./components/MovieForm";
+import MovieForm from "./components/MovieForm"; // Import the MovieForm component
 import Customers from "./components/Customers";
 import Rentals from "./components/Rentals";
 import NotFound from "./components/NotFound";
@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/registerForm";
 import "./App.css";
+
 class App extends Component {
   render() {
     return (
